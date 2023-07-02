@@ -17,7 +17,7 @@ def read_html():
 def get_ip():
     wlan = network.WLAN(network.STA_IF)
     wlan.active(True)
-    wlan.connect("DIGI_45cb30","5932ba34")
+    wlan.connect("ssid","password")
     ip = None
  
     # Wait for connect or fail
