@@ -1,0 +1,205 @@
+//1
+
+<input type="checkbox" id="checkbox1">
+<label for="checkbox1">Checkbox 1</label>
+
+<input type="checkbox" id="checkbox2">
+<label for="checkbox2">Checkbox 2</label>
+
+<button onclick="sendCheckboxValues()">Send Values</button>
+
+function sendCheckboxValues() {
+  var checkbox1 = document.getElementById("checkbox1");
+  var checkbox2 = document.getElementById("checkbox2");
+
+  var data = {
+    checkbox1: checkbox1.checked,
+    checkbox2: checkbox2.checked
+  };
+
+  fetch('/your-server-endpoint', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => {
+    if (response.ok) {
+      console.log('Checkbox values sent successfully.');
+      // Handle successful response from the server
+    } else {
+      console.error('Error sending checkbox values.');
+      // Handle error response from the server
+    }
+  })
+  .catch(error => {
+    console.error('Error sending checkbox values:', error);
+    // Handle network or other errors
+  });
+}
+
+
+//2
+
+<input type="checkbox" id="checkbox1">
+<label for="checkbox1">Checkbox 1</label>
+
+<input type="checkbox" id="checkbox2">
+<label for="checkbox2">Checkbox 2</label>
+
+document.addEventListener("DOMContentLoaded", function() {
+  // Attach event listeners to the checkboxes
+  var checkbox1 = document.getElementById("checkbox1");
+  var checkbox2 = document.getElementById("checkbox2");
+
+  checkbox1.addEventListener("change", function() {
+    sendCheckboxChangeToServer(checkbox1.id, checkbox1.checked);
+  });
+
+  checkbox2.addEventListener("change", function() {
+    sendCheckboxChangeToServer(checkbox2.id, checkbox2.checked);
+  });
+});
+
+function sendCheckboxChangeToServer(checkboxId, isChecked) {
+  var data = {
+    checkboxId: checkboxId,
+    isChecked: isChecked
+  };
+
+  fetch('/your-server-endpoint', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => {
+    if (response.ok) {
+      console.log('Checkbox change sent successfully.');
+      // Handle successful response from the server
+    } else {
+      console.error('Error sending checkbox change.');
+      // Handle error response from the server
+    }
+  })
+  .catch(error => {
+    console.error('Error sending checkbox change:', error);
+    // Handle network or other errors
+  });
+}
+
+//3
+
+<input type="checkbox" id="checkbox1">
+<label for="checkbox1">Checkbox 1</label>
+
+<input type="checkbox" id="checkbox2">
+<label for="checkbox2">Checkbox 2</label>
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  // Attach event listeners to the checkboxes
+  var checkbox1 = document.getElementById("checkbox1");
+  var checkbox2 = document.getElementById("checkbox2");
+
+  checkbox1.addEventListener("change", function() {
+    sendCheckboxChangeToServer(checkbox1.id, checkbox1.checked);
+  });
+
+  checkbox2.addEventListener("change", function() {
+    sendCheckboxChangeToServer(checkbox2.id, checkbox2.checked);
+  });
+});
+
+function sendCheckboxChangeToServer(checkboxId, isChecked) {
+  var data = {
+    checkboxId: checkboxId,
+    isChecked: isChecked
+  };
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "/your-server-endpoint", true);
+  xhr.setRequestHeader("Content-Type", "application/json");
+
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        console.log('Checkbox change sent successfully.');
+        // Handle successful response from the server
+      } else {
+        console.error('Error sending checkbox change. Status: ' + xhr.status);
+        // Handle error response from the server
+      }
+    }
+  };
+
+  xhr.send(JSON.stringify(data));
+}
+
+
+//4
+
+<input type="checkbox" id="checkbox1" onclick="sendCheckboxChangeToServer('checkbox1')">
+<label for="checkbox1">Checkbox 1</label>
+
+<input type="checkbox" id="checkbox2" onclick="sendCheckboxChangeToServer('checkbox2')">
+<label for="checkbox2">Checkbox 2</label>
+
+function sendCheckboxChangeToServer(checkboxId) {
+  var checkbox = document.getElementById(checkboxId);
+  var isChecked = checkbox.checked;
+
+  var data = {
+    checkboxId: checkboxId,
+    isChecked: isChecked
+  };
+
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', '/your-server-endpoint', true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+      if (xhr.status === 200) {
+        console.log('Checkbox change sent successfully.');
+        // Handle successful response from the server
+      } else {
+        console.error('Error sending checkbox change.');
+        // Handle error response from the server
+      }
+    }
+  };
+  xhr.send(JSON.stringify(data));
+}
+
+//5
+
+<input type="checkbox" id="checkbox1" onclick="sendCheckboxChangeToServer('checkbox1')">
+<label for="checkbox1">Checkbox 1</label>
+
+<input type="checkbox" id="checkbox2" onclick="sendCheckboxChangeToServer('checkbox2')">
+<label for="checkbox2">Checkbox 2</label>
+
+
+function sendCheckboxChangeToServer(checkboxId) {
+  var checkbox = document.getElementById(checkboxId);
+  var isChecked = checkbox.checked;
+
+  var url = '/your-server-endpoint?checkboxId=' + checkboxId + '&isChecked=' + isChecked;
+
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', url, true);
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+      if (xhr.status === 200) {
+        console.log('Checkbox change sent successfully.');
+        // Handle successful response from the server
+      } else {
+        console.error('Error sending checkbox change.');
+        // Handle error response from the server
+      }
+    }
+  };
+  xhr.send();
+}
